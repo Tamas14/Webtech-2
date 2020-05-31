@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import api from '../api'
+import bookAction from '../../actions/bookActions'
 
 import styled from 'styled-components'
 
@@ -35,7 +35,7 @@ const CancelButton = styled.a.attrs({
     margin: 15px 15px 15px 5px;
 `
 
-class BooksUpdate extends Component {
+class BookUpdate extends Component {
     constructor(props) {
         super(props)
 
@@ -75,7 +75,7 @@ class BooksUpdate extends Component {
 
         console.log(payload);
 
-        await api.updateBookById(id, payload).then(res => {
+        await bookAction.updateBookById(id, payload).then(res => {
             window.alert(`Book updated successfully`)
             this.setState({
                 name: '',
@@ -87,7 +87,7 @@ class BooksUpdate extends Component {
 
     componentDidMount = async () => {
         const { id } = this.state
-        const book = await api.getBookById(id)
+        const book = await bookAction.getBookById(id)
 
         this.setState({
             name: book.data.data.name,
@@ -100,7 +100,7 @@ class BooksUpdate extends Component {
         const { name, authors, date } = this.state
         return (
             <Wrapper>
-                <Title>Create Book</Title>
+                <Title>Update book</Title>
 
                 <Label>Name: </Label>
                 <InputText
@@ -135,4 +135,4 @@ class BooksUpdate extends Component {
     }
 }
 
-export default BooksUpdate
+export default BookUpdate

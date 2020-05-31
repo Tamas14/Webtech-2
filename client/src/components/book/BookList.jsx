@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
-import api from '../api'
+import bookAction from '../../actions/bookActions'
 
 import styled from 'styled-components'
 
-import 'react-table/react-table.css'
+import '../../style/react-table.css'
 
 const Wrapper = styled.div`
     padding: 0 40px 40px 40px;
@@ -38,11 +38,10 @@ class DeleteBook extends Component {
 
         if (
             window.confirm(
-
                 `Do tou want to delete the book ${this.props.name} permanently?`,
             )
         ) {
-            api.deleteBookById(this.props.id)
+            bookAction.deleteBookById(this.props.id)
             window.location.reload()
         }
     }
@@ -52,12 +51,11 @@ class DeleteBook extends Component {
     }
 }
 
-class BooksList extends Component {
+class BookList extends Component {
     constructor(props) {
         super(props)
         this.state = {
             books: [],
-            columns: [],
             isLoading: false,
         }
     }
@@ -65,9 +63,9 @@ class BooksList extends Component {
     componentDidMount = async () => {
         this.setState({ isLoading: true })
 
-        await api.getAllBooks().then(books => {
+        await bookAction.getAllBooks().then(book => {
             this.setState({
-                books: books.data.data,
+                books: book.data.data,
                 isLoading: false,
             })
         })
@@ -138,4 +136,4 @@ class BooksList extends Component {
     }
 }
 
-export default BooksList
+export default BookList

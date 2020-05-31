@@ -13,7 +13,7 @@ createBook = (req, res) => {
     const book = new Book(body)
 
     if (!book) {
-        return res.status(400).json({ success: false, error: err })
+        return res.status(400).json({success: false, error: err})
     }
 
     book
@@ -43,7 +43,7 @@ updateBook = async (req, res) => {
         })
     }
 
-    Book.findOne({ _id: req.params.id }, (err, book) => {
+    Book.findOne({_id: req.params.id}, (err, book) => {
         if (err) {
             return res.status(404).json({
                 err,
@@ -72,47 +72,47 @@ updateBook = async (req, res) => {
 }
 
 deleteBook = async (req, res) => {
-    await Book.findOneAndDelete({ _id: req.params.id }, (err, book) => {
+    await Book.findOneAndDelete({_id: req.params.id}, (err, book) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({success: false, error: err})
         }
 
         if (!book) {
             return res
                 .status(404)
-                .json({ success: false, error: `Book not found` })
+                .json({success: false, error: `Book not found`})
         }
 
-        return res.status(200).json({ success: true, data: book })
+        return res.status(200).json({success: true, data: book})
     }).catch(err => console.log(err))
 }
 
 getBookById = async (req, res) => {
-    await Book.findOne({ _id: req.params.id }, (err, book) => {
+    await Book.findOne({_id: req.params.id}, (err, book) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({success: false, error: err})
         }
 
         if (!book) {
             return res
                 .status(404)
-                .json({ success: false, error: `Book not found` })
+                .json({success: false, error: `Book not found`})
         }
-        return res.status(200).json({ success: true, data: book })
+        return res.status(200).json({success: true, data: book})
     }).catch(err => console.log(err))
 }
 
 getBooks = async (req, res) => {
     await Book.find({}, (err, books) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({success: false, error: err})
         }
         if (!books.length) {
             return res
                 .status(404)
-                .json({ success: false, error: `Book not found` })
+                .json({success: false, error: `Book not found`})
         }
-        return res.status(200).json({ success: true, data: books })
+        return res.status(200).json({success: true, data: books})
     }).catch(err => console.log(err))
 }
 

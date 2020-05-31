@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import api from '../api'
+import bookAction from '../../actions/bookActions'
 
 import styled from 'styled-components'
 
@@ -35,7 +35,7 @@ const CancelButton = styled.a.attrs({
     margin: 15px 15px 15px 5px;
 `
 
-class BooksInsert extends Component {
+class BookCreate extends Component {
     constructor(props) {
         super(props)
 
@@ -74,7 +74,7 @@ class BooksInsert extends Component {
         arrayAuthors = arrayAuthors.map(Function.prototype.call, String.prototype.trim);
         const payload = {name, authors: arrayAuthors, date}
 
-        await api.insertBook(payload).then(res => {
+        await bookAction.insertBook(payload).then(res => {
             window.alert(`Book inserted successfully`)
             this.setState({
                 name: '',
@@ -88,7 +88,7 @@ class BooksInsert extends Component {
         const {name, authors, date} = this.state
         return (
             <Wrapper>
-                <Title>Create Book</Title>
+                <Title>Create book</Title>
 
                 <Label>Name: </Label>
                 <InputText
@@ -123,4 +123,4 @@ class BooksInsert extends Component {
     }
 }
 
-export default BooksInsert
+export default BookCreate

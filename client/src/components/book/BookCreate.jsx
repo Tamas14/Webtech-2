@@ -60,12 +60,10 @@ class BookCreate extends Component {
     }
 
     handleChangeInputDate = async event => {
-        const date = event.target.value
+        const date = Number(event.target.value)
 
-        if (date < 0)
-            return
-
-        this.setState({date})
+        if(Number(event.target.max) >= date && date >= 0)
+            this.setState({ date })
     }
 
     handleIncludeBook = async () => {
@@ -74,14 +72,25 @@ class BookCreate extends Component {
         arrayAuthors = arrayAuthors.map(Function.prototype.call, String.prototype.trim);
         const payload = {name, authors: arrayAuthors, date}
 
-        await bookAction.insertBook(payload).then(res => {
-            window.alert(`Book inserted successfully`)
-            this.setState({
-                name: '',
-                authors: '',
-                date: '',
+        await bookAction.getAllBooks().then(book => {
+            this.books = book.data.data;
+
+            for(let book of this.books) {
+                if(book.name === this.state.name) {
+                    window.alert("Book with name \"" + this.state.name + "\" is already exist!")
+                    return;
+                }
+            }
+
+            bookAction.insertBook(payload).then(res => {
+                window.alert(`Book inserted successfully`)
+                this.setState({
+                    name: '',
+                    authors: '',
+                    date: '',
+                })
             })
-        })
+        });
     }
 
     render() {

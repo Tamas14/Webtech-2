@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 
@@ -11,10 +11,8 @@ import Navbar from "./components/layout/Navbar";
 import HomePage from "./components/layout/HomePage";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
 
 import { BookList, BookCreate, BookUpdate } from "./components/book/";
-
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -44,7 +42,6 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/books/list" component={BookList} />
             <PrivateRoute exact path="/books/create" component={BookCreate} />
             <PrivateRoute exact path="/books/update/:id" component={BookUpdate} />

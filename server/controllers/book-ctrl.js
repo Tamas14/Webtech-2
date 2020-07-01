@@ -121,5 +121,5 @@ module.exports = {
     updateBook,
     deleteBook,
     getBooks,
-    getBookById,
+    getBookById
 }

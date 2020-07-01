@@ -28,7 +28,12 @@ class Links extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {isLoggedIn: (!!localStorage.jwtToken)}
+        this.state = {isLoggedIn: (!!localStorage.jwtToken),
+                    smallForm: (window.innerWidth > 992)}
+    }
+
+    responsive() {
+        this.setState({smallForm: (window.innerWidth >= 992)});
     }
 
     onLogoutClick = e => {
@@ -37,14 +42,15 @@ class Links extends Component {
     };
 
     render() {
-        const {user} = this.props.auth;
         const isLoggedIn = this.state.isLoggedIn;
         let RightItem, Logout;
 
         if (!isLoggedIn) {
             RightItem = <Item><Link to="login" className="nav-link">Login</Link></Item>;
         } else {
-            RightItem = <Item><h3 className="text-light">Hello, {jwt_decode(localStorage.jwtToken).name}</h3></Item>;
+            if(this.state.smallForm)
+                RightItem = <Item><h3 className="text-light">Hello, {jwt_decode(localStorage.jwtToken).name}</h3></Item>;
+
             Logout = <Item><Link to="/" onClick={this.onLogoutClick} className="nav-link">Logout</Link></Item>;
         }
 
@@ -59,7 +65,7 @@ class Links extends Component {
                 <Collapse>
                     <List>
                         <Item classname={"active"}>
-                            <Link to="/" className="navbar-brand" onClick={this.linkClicked}>
+                            <Link to="/" className="navbar-brand">
                                 Library
                             </Link>
                         </Item>
@@ -86,11 +92,13 @@ class Links extends Component {
     componentDidMount() {
         $(document).ready(() => {
             $(".navbar-nav>li>a").on('click', () => {
-                if (window.innerWidth < 992) {
+                if (!this.state.smallForm) {
                     $('#dropdownButton').trigger("click");
                 }
             });
-        })
+        });
+
+        window.addEventListener("resize", this.responsive.bind(this));
     }
 }
 

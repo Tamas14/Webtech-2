@@ -40,6 +40,7 @@ class HomePage extends Component {
                 </div>
             </Wrapper>
         )
+
     }
 }
 

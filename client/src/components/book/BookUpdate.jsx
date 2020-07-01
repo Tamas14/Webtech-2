@@ -61,8 +61,10 @@ class BookUpdate extends Component {
     }
 
     handleChangeInputDate = async event => {
-        const date = event.target.value
-        this.setState({ date })
+        const date = Number(event.target.value)
+
+        if(Number(event.target.max) >= date && date >= 0)
+            this.setState({ date })
     }
 
     handleUpdateBook = async () => {
@@ -72,8 +74,6 @@ class BookUpdate extends Component {
         arrayAuthors = arrayAuthors.map(Function.prototype.call, String.prototype.trim)
 
         const payload = {name, authors: arrayAuthors, date}
-
-        console.log(payload);
 
         await bookAction.updateBookById(id, payload).then(res => {
             window.alert(`Book updated successfully`)

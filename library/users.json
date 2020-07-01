@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5eabe2555a2eb0102c56608e"},"name":"admin","email":"admin@admin.hu","password":"$2a$10$uGpYDj4oZcEAsM4nWBodkeO33ckD6dK6muU1nhDF5VCUlPDoYiBzC","createdAt":{"$date":"2020-05-01T08:48:21.626Z"},"updatedAt":{"$date":"2020-05-01T08:48:21.626Z"},"__v":0}
